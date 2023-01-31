@@ -1,14 +1,55 @@
 <!doctype html>
 <html>
     <head>
-        <script id="head_script">console.log('this is a head script', document)</script>
+        <script src="s.js"></script>
         <title>hello world</title>
         <meta name="description" content="This is a description">
     </head>
     <body>
-        <main>Hello everybody</main>
-        <script id="body_script">
-            console.log('this is a body script', document)
+        <main></main>
+        <script id="loader">
+            const w = {
+                head: {
+                    title: 'Tads Web',
+                    description: 'Small part of WWW',
+                    script: {
+                        e: 'script',
+                        id: 'head_script',
+                        t: 'console.log("does this work?")'
+                    },
+                    items: [],
+                    styles: [
+                        {s: '*', o: {
+                            background_color: '#000',
+                            color: '#fff',
+                            font_size: '22px',
+                            font_family: 'monospace'
+                        }},
+                        {s: 't1', o: {
+                            text_transform: 'uppercase',
+                            font_size: '44px',
+                            font_weight: 'bold',
+                            letter_spacing: '2px'
+                        }},
+                        {s: 't2', o: {
+                            font_size: '33px',
+                            font_weight: 'bold',
+                            letter_spacing: '2px'
+                        }}
+                    ]
+                },
+                body: {
+                    main: [
+                        {c: 't2', t: 'Hello everybody'}
+                    ],
+                    script: {
+                        e: 'script',
+                        id: 'body_script',
+                        t: 'console.log("how about this?")'
+                    }
+                }
+            }
+            lw(w)
         </script>
     </body>
 </html>
