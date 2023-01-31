@@ -1,0 +1,58 @@
+{
+    "head": {
+        "title": "Tads Websss",
+        "description": "Small part of WWWsss",
+        "script": {
+            "e": "script",
+            "id": "head_script",
+            "t": "console.log(\"does this work?\") function letsGo(with){document.write('yes')} letsGo()"
+        },
+        "items": [
+            {
+                "e": "script",
+                "a": {
+                    "src": "src.js"
+                }
+            }
+        ],
+        "styles": [
+            {
+                "s": "*",
+                "o": {
+                    "background_color": "#000",
+                    "color": "#fff",
+                    "font_size": "22px",
+                    "font_family": "monospace"
+                }
+            }, {
+                "s": "t1",
+                "o": {
+                    "text_transform": "uppercase",
+                    "font_size": "44px",
+                    "font_weight": "bold",
+                    "letter_spacing": "2px"
+                }
+            }, {
+                "s": "t2",
+                "o": {
+                    "font_size": "33px",
+                    "font_weight": "bold",
+                    "letter_spacing": "2px"
+                }
+            }
+        ]
+    },
+    "body": {
+        "main": [
+            {
+                "c": "t2",
+                "t": "Hello everybody"
+            }
+        ],
+        "script": {
+            "e": "script",
+            "id": "body_script",
+            "t": "console.log(\"how about this?\")"
+        }
+    }
+}

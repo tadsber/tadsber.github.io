@@ -1,0 +1,50 @@
+* {
+    --primary-color: rgb(75, 10, 135);
+    --primary-color: rgb(43, 7, 76);
+    --primary-gradient: linear-gradient(90deg, rgb(75, 10, 135) 0%, rgb(109, 26, 100) 100%);
+    --secondary-gradient: linear-gradient(90deg, rgb(75, 10, 135) 100%, rgb(109, 26, 100) 100%);
+}
+
+* {
+    font-family: monospace;
+}
+
+.action {
+    padding: 1em;
+    background: var(--primary-gradient);
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 500ms;
+    margin: 1em;
+}
+
+.action:hover {
+    background: var(--secondary-gradient);
+}
+
+input, [contenteditable=true] {
+    padding: 1em;
+    border-radius: 0;
+    outline: none;
+    margin: 1em;
+    border: 1px solid #000;
+}
+
+label {
+    display: block;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.df { display: flex;}
+
+.link {
+    padding: 1em;
+    text-decoration: underline;
+    text-transform: uppercase;
+    cursor: pointer;
+}

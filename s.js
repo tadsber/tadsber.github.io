@@ -1,7 +1,7 @@
 // from https://github.com/tadsber/s
 function e(id) { return document.getElementById(id) }
-function show(id) { e(id).style.display = 'block' }
-function hide(id) { e(id).style.display = 'none' }
+function show(id) { e(id).style.display = 'block'}
+function hide(id) { e(id).style.display = 'none'}
 function q(query) { return document.querySelector(query) }
 function qa(query) { return document.querySelectorAll(query) }
 function qe(el, query) { return el.querySelector(query) }
@@ -11,6 +11,7 @@ function add(el, child) { el.append(child) }
 function sadd(el, child) { el.prepend(child) }
 function c(el) { return document.createElement(el) }
 function a(el, atr, val) { el.setAttribute(atr, val) }
+function ga(el, atr) { el.getAttribute(atr) }
 function ao(el, obj) { for(atr in obj) { el.setAttribute(atr, obj[atr].replace(/_/g, '-')) } }
 function ar(el, atr) { el.removeAttribute(atr) }
 function s(el, key, value) { el.style[key] = value }
@@ -34,10 +35,11 @@ function so(obj) {
 function ce(obj) { 
     const el = c(obj.e || 'div')
     obj.id ? a(el, 'id', obj.id) : null 
-    obj.c ? a(el, 'class', obj.c) : null
+    obj.cl ? a(el, 'class', obj.cl) : null
     obj.t ? t(el, obj.t) : null
     obj.a ? ao(el, obj.a) : null
     obj.so ? ss(el, so(obj.so)) : null
+    if(obj.c && obj.c.length) { for(ch of obj.c) { add(el,ce(ch)) } }
     return el
 }
 
@@ -71,4 +73,36 @@ function lw(w) {
     add(document.head, ce(w.head.script))
     add(document.body, ce(w.body.script))
     for(e of w.body.main) { add(q('main'), ce(e))}
+}
+
+function mo(o = {}, objects = []) {
+    let ob = o
+    //iterate objects from array
+    for(let i = 0; i < objects.length; i++) {
+        //iterate properties of object
+        let object = objects[i]
+        for(prop in object) {
+            //if property is not an object assign it
+            if(typeof object[prop] !== 'object' ) {
+                ob[prop] = object[prop]
+            }
+            else if(Array.isArray(object[prop])) {
+                console.log('hooray, an array - what to do?')
+            }
+            //if it is itterate the object
+            else {
+                ob[prop] = mo(ob[prop], [object[prop]])
+            }
+        }
+    }
+
+    return ob
+}
+
+function coe(obj) {
+    const el = ce({
+        a: {o: JSON.stringify(obj)},
+        t: obj.e
+    })
+    return el
 }

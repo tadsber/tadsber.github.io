@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="s.js"></script>
+        <link rel="stylesheet" href="s.css">
+        <title>hello world</title>
+        <meta name="description" content="This is a description">
+        <style>
+            #one::after {
+                content: attr(atribute)
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="loader">
+                <input type="text" name="path" value="./w.json">
+                <div class="action" onclick="load()">load</div>
+                <div class="action" onclick="build()">build</div>
+                <div class="action" onclick="preview()">preview</div>
+            </div>
+            <div id="export">
+
+            </div>
+            <div id="editor">
+                <div class="df">                    
+                    <div class="link" onclick="show('head'); hide('body')">
+                        head
+                    </div>
+                    <div class="link" onclick="show('body'); hide('head')">
+                        body
+                    </div>
+                </div>
+                <div>
+                    <div id="head">
+                        <label for="">Title</label>
+                        <input type="text" name="title">
+                        <label for="">Description</label>
+                        <input type="text" name="description">
+                        <label for="">Script</label>
+                        <div contenteditable="true" id="head_script">
+                        </div>
+                        <label for="">Items</label>
+                        <div id="head_items"></div>
+                    </div>
+                    <div id="body" style="display: none;">
+                        <label for="">Items</label>
+                        <div id="main_items"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script id="loader">
+            const ed = e('editor')
+            var w = {}
+
+            function load() {
+                fetch(q('[name=path]').value)
+                .then((r) => r.json())
+                .then(data => 
+                {   
+                    w = data
+                    edit(w)
+                })
+            }
+
+            function edit(w) {
+                qe(ed, '[name=title]').value = w.head.title
+                qe(ed, '[name=description]').value = w.head.description
+                t(qe(ed, '#head_script'), w.head.script.t)
+                for(item of w.head.items) {
+                    add(qe(ed, '#head_items'), coe(item))
+                }
+                for(item of w.body.main) {
+                    add(qe(ed, '#main_items'), coe(item))
+                }
+            }
+
+            function build() {
+                
+                var b = {
+                    head: {
+                        title: qe(ed, '[name=title]').value,
+                        description: qe(ed, '[name=description]').value,
+                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')}
+                    },
+                    body: {
+                        main: [],
+            
+                    }
+                }
+                t(e('export'), JSON.stringify(mo(w, [b])))
+            }
+
+            function preview() {
+                t(e('export'), JSON.stringify(w))
+            }
+        </script>
+    </body>
+</html>
