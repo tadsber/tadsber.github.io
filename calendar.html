@@ -9,12 +9,39 @@
                 font-family: monospace;
             }
             div {
-                padding: 0.2em 0.4em;
+                
             }
             .controls {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .weeks {
+                display: flex;
+                justify-content: center;
+
+            }
+
+            .week {
+                width: calc(100vw / 8);
+                text-align: center;
+            }
+
+            .week_day { 
+                background-color: #ddd;
+                border: 3px solid #fff;
+                cursor: pointer;
+                transition: all 300ms ease;
+            }
+
+            .week_day:hover {
+                border: 3px solid #666;
+                background-color: #ccc;
+            }
+
+            .week_day.selected {
+                border: 3px solid #222;
             }
         </style>
     </head>
@@ -34,9 +61,6 @@
                         <div id="month">2</div>
                         <div onclick="nextMonth()">></div>
                     </div>
-                    <div class="">
-
-                    </div>
                 </div>
                 <div class="day">
                     <div class="controls">
@@ -45,26 +69,80 @@
                         <div onclick="nextDay()">></div>
                     </div>
                 </div>
-                <div class="">
 
+                <div class="weeks">
+                    <div class="week">
+                        <div class="week_day">S</div>
+                        <div class="week_day">M</div>
+                        <div class="week_day">T</div>
+                        <div class="week_day">W</div>
+                        <div class="week_day">T</div>
+                        <div class="week_day">F</div>
+                        <div class="week_day">S</div>
+                    </div>
+                    <div class="week" id="week1">
+                        <div class="week_day">1</div>
+                        <div class="week_day">2</div>
+                        <div class="week_day">3</div>
+                        <div class="week_day">4</div>
+                        <div class="week_day">5</div>
+                        <div class="week_day">6</div>
+                        <div class="week_day">7</div>
+                    </div>
+                    <div class="week" id="week2">
+                        <div class="week_day">8</div>
+                        <div class="week_day">9</div>
+                        <div class="week_day selected">10</div>
+                        <div class="week_day">11</div>
+                        <div class="week_day">12</div>
+                        <div class="week_day">13</div>
+                        <div class="week_day">14</div>
+                    </div>
+                    <div class="week" id="week3">
+                        <div class="week_day">15</div>
+                        <div class="week_day">16</div>
+                        <div class="week_day">17</div>
+                        <div class="week_day">18</div>
+                        <div class="week_day">19</div>
+                        <div class="week_day">20</div>
+                        <div class="week_day">21</div>
+                    </div>
+                    <div class="week" id="week4">
+                        <div class="week_day">22</div>
+                        <div class="week_day">23</div>
+                        <div class="week_day">24</div>
+                        <div class="week_day">25</div>
+                        <div class="week_day">26</div>
+                        <div class="week_day">27</div>
+                        <div class="week_day">28</div>
+                    </div>
+                    <div class="week" id="week5">
+                        <div class="week_day">29</div>
+                        <div class="week_day">30</div>
+                        <div class="week_day">31</div>
+                    </div>
                 </div>
             </div>
 
         </main>
         <script>
-            var date = { y: 2023, m: 1, d: 1, wd: 'SUN' }
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+            const months = [31,28,31,30,31,30,31,31,30,31,30,31]
+            var selected_dates = {}
+
+            var d = new Date()
+            var date = { y: d.getFullYear(), m: d.getMonth() + 1, d: d.getDate(), wd: days[d.getDay()] }
+
             updateYear()
             updateMonth()
             updateDay()
-            
-            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-
-            const months = [31,28,31,30,31,30,31,31,30,31,30,31]
-
-
 
             function updateYear() { t(e('year'), date.y) }
-            function updateMonth() { t(e('month'), date.m) }
+            function updateMonth() { 
+                
+                t(e('month'), date.m)
+
+            }
             function updateDay() { t(e('day'), date.d) }
 
             function previousYear() {
@@ -84,6 +162,13 @@
                 }
                 else { date.m = date.m - 1}
                 updateMonth()
+                if(date.d > months[date.m - 1]) {
+                    if(date.m === 2 && date.y % 4 === 0) {
+                        date.d = 29
+                    }
+                    else date.d = months[date.m - 1]
+                    updateDay()
+                }
             }
 
             function nextMonth() {
@@ -95,26 +180,32 @@
                     date.m = date.m + 1
                 }
                 updateMonth()
+                if(date.d > months[date.m - 1]) {
+                    if(date.m === 2 && date.y % 4 === 0) {
+                        date.d = 29
+                    }
+                    else date.d = months[date.m - 1]
+                    updateDay()
+                }
             }
 
             function previousDay() {
                 if(date.d === 1) {
-                    previousMonth()
                     if(date.m === 1) {
                         previousYear()
                         date.d = 31
                     }
+                    else if(date.m === 3) {
+                        if(date.y % 4 === 0) {
+                            date.d = 29
+                        }
+                        else { date.d = 28}
+                    }
                     else {
-                        date.d = months[date.m - 1]
+                        date.d = months[date.m - 2]
                     }
+                    previousMonth()
                 }
-                else if(date.m === 2) {
-                    if(date.y % 4 === 0) {
-                        date.d = 29
-                    }
-                    else { date.d = 28 }
-                }
-                else if(date.m === 3 &&) 
                 else {
                     date.d = date.d - 1
                 }
@@ -122,33 +213,60 @@
             }
 
             function nextDay() {
-                if(date.m === 2) {
-                    if(date.d === 28) {
-                        if(date.y % 4 === 0) {
-                            date.d = 29
-                        }
-                        else {
-                            nextMonth()
-                            date.d = 1
-                        }
+                if(date.d >= months[date.m - 1]) {
+                    if(date.y % 4 === 0 && date.d != 29) {
+                        date.d = 29
                     }
-                    else if(date.d === 29) {
+                    else {
                         nextMonth()
                         date.d = 1
                     }
-                    else {
-                        date.d = date.d + 1 
-                    }
-                }
-                else if(date.d === months[date.m - 1]) {
-                    nextMonth()
-                    date.d = 1
                 }
                 else {
                     date.d = date.d + 1
                 }
                 updateDay()
             }
+        
+            // calculateDayOfWeek({ y: 2021, m: 2, d: 4 })
+            // function calculateDayOfWeek(d) {
+            //     //how to calculate the date of the week of any given date without using any existing tools?
+            //     //using 2023-01-01 as a reference date to calculate how many days passed since then or before.
+            //     //so the first thing is to check the year
+
+            //     var period = { y: 0, m: 0, d: 0 }
+            //     // if(d.y >= date.y) {
+            //     //     period.y = d.y - date.y
+            //     // }
+            //     // else {
+            //     //     period.y = date.y - d.y
+            //     // }
+
+            //     //or a one liner
+
+            //     period.y = d.y >= date.y ? d.y - date.y : date.y - d.y
+
+            //     //it works but the given number is really correct and years might be different.
+            //     //for example calculateDayOfWeek({ y: 2021, m: 2, d: 4 }) returns {y:2, m:0, d:0}
+
+            // }
+            function showWeeks() {
+                const week_days = qa('.week_day')
+                for(d of week_days) {
+                    a(d, 'onclick', 'selectDay(this)')
+                }
+            }
+
+            function selectDay(el) {
+                ct(el, 'selected')
+
+                ud()
+
+                selected_dates[date.y][date.m][tg(el)] = true
+
+            }
+
+            showWeeks()
         </script>
     </body>
 </html>

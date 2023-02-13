@@ -7,6 +7,7 @@ function qa(query) { return document.querySelectorAll(query) }
 function qe(el, query) { return el.querySelector(query) }
 function qea(el, query) { return el.querySelectorAll(query) }
 function t(el, text) { el.innerText = text || '' }
+function tg(el) { return el.innerText }
 function add(el, child) { el.append(child) }
 function sadd(el, child) { el.prepend(child) }
 function c(el) { return document.createElement(el) }
@@ -27,6 +28,20 @@ function dso(key, obj) { window.localStorage.setItem(key, JSON.stringify(obj))}
 function dgo(key) { return JSON.parse(window.localStorage.getItem(key))}
 function p(el) { return el.parentNode }
 function si(el) { return p(el).children }
+function uo(object, key, value) {
+
+    let path = key.split('.')
+
+    if(path.length > 1) {
+        for(p in path) {
+            if(!object[path[p]]) { object[path[p]] = {} }
+            if(p === path.length - 1) {
+                object
+            }
+        }
+    }
+    
+}
 function so(obj) {
 	var st = ''
 	for(s in obj) { st += s + ':' + obj[s] + '; ' }
@@ -73,6 +88,21 @@ function lw(w) {
     add(document.head, ce(w.head.script))
     add(document.body, ce(w.body.script))
     for(e of w.body.main) { add(q('main'), ce(e))}
+}
+
+function mw(document) {
+    var w = {
+        head: {
+            title: document.querySelector('title').innerText,
+            description: document.querySelector('[name=description]').getAttribute('content'),
+            items: document.head.children,
+        },
+        body: {
+            main: document.querySelector('main').children
+        }
+    }
+
+    return w
 }
 
 function mo(o = {}, objects = []) {
