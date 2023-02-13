@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="s.js"></script>
+        <title>Calendar</title>
+        <style>
+            * {
+                font-size: 6vw;
+                font-family: monospace;
+            }
+            div {
+                padding: 0.2em 0.4em;
+            }
+            .controls {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="calendar">
+                <div class="year">
+                    <div class="controls">
+                        <div onclick="previousYear()"><</div>
+                        <div id="year">2023</div>
+                        <div onclick="nextYear()">></div>
+                    </div>
+                </div>
+                <div class="month">
+                    <div class="controls">
+                        <div onclick="previousMonth()"><</div>
+                        <div id="month">2</div>
+                        <div onclick="nextMonth()">></div>
+                    </div>
+                    <div class="">
+
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="controls">
+                        <div onclick="previousDay()"><</div>
+                        <div id="day">1</div>
+                        <div onclick="nextDay()">></div>
+                    </div>
+                </div>
+                <div class="">
+
+                </div>
+            </div>
+
+        </main>
+        <script>
+            var date = { y: 2023, m: 1, d: 1, wd: 'SUN' }
+            updateYear()
+            updateMonth()
+            updateDay()
+            
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+
+            const months = [31,28,31,30,31,30,31,31,30,31,30,31]
+
+
+
+            function updateYear() { t(e('year'), date.y) }
+            function updateMonth() { t(e('month'), date.m) }
+            function updateDay() { t(e('day'), date.d) }
+
+            function previousYear() {
+                date.y = date.y -1
+                updateYear()
+            }
+
+            function nextYear() {
+                date.y = date.y + 1
+                updateYear()
+            }
+
+            function previousMonth() {
+                if(date.m === 1) {
+                    previousYear()
+                    date.m = 12
+                }
+                else { date.m = date.m - 1}
+                updateMonth()
+            }
+
+            function nextMonth() {
+                if(date.m === 12) {
+                    nextYear()
+                    date.m = 1
+                }
+                else {
+                    date.m = date.m + 1
+                }
+                updateMonth()
+            }
+
+            function previousDay() {
+                if(date.d === 1) {
+                    previousMonth()
+                    if(date.m === 1) {
+                        previousYear()
+                        date.d = 31
+                    }
+                    else {
+                        date.d = months[date.m - 1]
+                    }
+                }
+                else if(date.m === 2) {
+                    if(date.y % 4 === 0) {
+                        date.d = 29
+                    }
+                    else { date.d = 28 }
+                }
+                else if(date.m === 3 &&) 
+                else {
+                    date.d = date.d - 1
+                }
+                updateDay()
+            }
+
+            function nextDay() {
+                if(date.m === 2) {
+                    if(date.d === 28) {
+                        if(date.y % 4 === 0) {
+                            date.d = 29
+                        }
+                        else {
+                            nextMonth()
+                            date.d = 1
+                        }
+                    }
+                    else if(date.d === 29) {
+                        nextMonth()
+                        date.d = 1
+                    }
+                    else {
+                        date.d = date.d + 1 
+                    }
+                }
+                else if(date.d === months[date.m - 1]) {
+                    nextMonth()
+                    date.d = 1
+                }
+                else {
+                    date.d = date.d + 1
+                }
+                updateDay()
+            }
+        </script>
+    </body>
+</html>
