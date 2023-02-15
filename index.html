@@ -11,6 +11,7 @@
         <style>
           * { background-color: #000; color: #fff; fill: #fff; font-family: monospace; font-size: 3vw; letter-spacing: 0.03vw; }
           body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+          section { display: none; }
         </style>
         <script>
             const firebaseConfig = {
@@ -35,18 +36,33 @@
         </script>
     </head>
     <body>
-<!--         <nav class="top">
+        <nav class="top">
             <ul>
                 <li>
                     accounts
                 </li>
+                <li>
+                    blog
+                </li>
             </ul>
-        </nav> -->
+        </nav>
         <main>
             <section id="accounts">
                 <a class="account github" href="https://github.com/tadsber" target="blank">github</a>
                 <a class="account instagram" href="https://instagram.com/okastada" target="blank">instagram</a>
             </section>
         </main>
+        <script>
+            const links
+            
+            load()
+            
+            function load() {
+                links = qe(q('nav'), 'li')
+                for(link of links) {
+                   a(link, 'onclick', 'show(e(this.innerText))')
+                }
+            }
+        </script>
     </body>
 </html>
