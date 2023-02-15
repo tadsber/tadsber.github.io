@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <script src="https://unpkg.com/srcsjs@0.0.4/s.js"></script>
+        <script src="https://unpkg.com/srcsjs@0.0.5/s.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
@@ -11,7 +11,26 @@
         <style>
           * { background-color: #000; color: #fff; fill: #fff; font-family: monospace; font-size: 3vw; letter-spacing: 0.03vw; }
           body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-          section { display: none; }
+          nav {position: fixed; top: 0; bottom: 0; left: 0; right: 0; display: flex; justify-content:center; align-items:center; flex-direction: column;}
+          #toggle { position: fixed; font-size: 3em; background: none; cursor: pointer; z-index: 9999; transform: rotate(45deg); display: none;}
+          .bl { left: 1em; bottom: 1em; }
+          .br { right: 1em; bottom: 1em; }
+          .tl { left: 1em; top: 1em; }
+          .tr { right: 1em; top: 1em; }
+          .link {
+            padding: 0.5em;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 100ms ease;
+            background: none;
+          }
+          .link:hover { transform: scale(1.1); text-decoration: underline;}
+          main { z-index: 0;}
+          section { display: none; background-color: #000; }
+          h1 { font-size: 3em; font-weight: bold;}
+          h2 { font-size: 2em; font-weight: bold;}
+          h3 {font-size: 1em; font-weight: bold;}
+          p {font-size: 1.5em;}
         </style>
         <script>
             const firebaseConfig = {
@@ -36,32 +55,45 @@
         </script>
     </head>
     <body>
-        <nav class="top">
-            <ul>
-                <li>
-                    accounts
-                </li>
-                <li>
-                    blog
-                </li>
-            </ul>
+        <div id="toggle" class="bl" onclick="show_nav()">+</div>
+        <nav id="nav" class="top">
+            <div class="link">accounts</div>
+            <div class="link">blog</div>
         </nav>
         <main>
             <section id="accounts">
                 <a class="account github" href="https://github.com/tadsber" target="blank">github</a>
                 <a class="account instagram" href="https://instagram.com/okastada" target="blank">instagram</a>
             </section>
+            <section id="blog">
+                <article id="language" class="unread">
+                    <h1>Language</h1>
+                    <p>What is a language?</p>
+                </article>
+            </section>
         </main>
         <script>
-            var links
-            
+            var navigating = true
+            const n = q('nav')
             load()
             
             function load() {
-                links = qe(q('nav'), 'li')
+                const links = qea(n, '.link')
                 for(link of links) {
-                   a(link, 'onclick', 'show(e(this.innerText))')
+                   a(link, 'onclick', 'nav(this.innerText)')
                 }
+            }
+
+            function nav(section_id) {
+                show(section_id)
+                hide('nav')
+                show('toggle')
+            }
+
+            function show_nav() {
+                for(s of q('main').children) { s.style.display = 'none'}
+                show('nav', 'flex')
+                hide('toggle')
             }
         </script>
     </body>
