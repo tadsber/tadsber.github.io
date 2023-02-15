@@ -1,13 +1,37 @@
 <!doctype html>
 <html>
     <head>
-        <meta chartset="utf-8">
         <script src="https://unpkg.com/srcsjs@0.0.4/s.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+        <meta chartset="utf-8">
         <title>hello world</title>
         <meta name="description" content="Tads blog">
         <style>
             
         </style>
+        <script>
+            const firebaseConfig = {
+              apiKey: "AIzaSyDv7X4zf0QO9SuSc052pz2wV6iFYmPlV5M",
+              authDomain: "tadsbers.firebaseapp.com",
+              databaseURL: "https://tadsbers-default-rtdb.europe-west1.firebasedatabase.app",
+              projectId: "tadsbers",
+              storageBucket: "tadsbers.appspot.com",
+              messagingSenderId: "330145109339",
+              appId: "1:330145109339:web:78492002bf415202af767e"
+            };
+            firebase.initializeApp(firebaseConfig)
+            const db = firebase.database()
+            const auth = firebase.auth()
+            auth.onAuthStateChanged(user => {
+                if(user) {
+                }
+                else {
+                }
+            })
+            
+        </script>
     </head>
     <body>
 <!--         <nav class="top">
