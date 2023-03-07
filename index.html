@@ -1,6 +1,4 @@
-<!doctype html>
-<html>
-    <head>
+<html><head>
         <script src="https://unpkg.com/srcsjs@0.0.5/s.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
@@ -25,12 +23,12 @@
             background: none;
           }
           .link:hover { transform: scale(1.1); text-decoration: underline;}
-          main { z-index: 0;}
-          section { display: none; background-color: #000; }
+          main { z-index: 0;  padding-bottom: 10vh; }
+          section { display: none; background-color: #000;}
           h1 { font-size: 3em; font-weight: bold;}
           h2 { font-size: 2em; font-weight: bold;}
           h3 {font-size: 1em; font-weight: bold;}
-          p {font-size: 1.5em;}
+          p {font-size: 1em;}
         </style>
         <script>
             const firebaseConfig = {
@@ -55,22 +53,55 @@
         </script>
     </head>
     <body>
-        <div id="toggle" class="bl" onclick="show_nav()">+</div>
-        <nav id="nav" class="top">
-            <div class="link">accounts</div>
-            <div class="link">blog</div>
+        <div id="toggle" class="bl" onclick="show_nav()" style="display: none;">+</div>
+        <nav id="nav" class="top" style="display: flex;">
+            <div class="link" onclick="nav(this.innerText)">accounts</div>
+            <div class="link" onclick="nav(this.innerText)">blog</div>
         </nav>
         <main>
-            <section id="accounts">
+            <section id="accounts" style="display: none;">
                 <a class="account github" href="https://github.com/tadsber" target="blank">github</a>
                 <a class="account instagram" href="https://instagram.com/okastada" target="blank">instagram</a>
                 <a class="account twitter" href="https://twitter.com/tadsber" target="blank">twitter</a>
             </section>
-            <section id="blog">
+            <section id="blog" style="display: none; padding: 1em;">
                 <article id="language" class="unread">
                     <h1>Language</h1>
-                    <p>What is a language?</p>
+                    <h2>What is a language?</h2>
+                    <p>Its a question that sounds simple.</p>
+                    <p>But can it be easy to answer such question if doing so requires using it itself?</p>
+                    <p>Perhaps to understand what a language is one should have a limitation of knowing only one.</p>
+                    <p>The task would be semingly impossible for someone who knows more than one language.</p>
+                    <p>So perhaps in this case the question would have to be more specific to include what language the question is refering to?</p>
+                    <p>An assumption could be made that if english is being used for this writing then it would also be the subject language requiring a definition.</p>
+                    <h2>Languages?</h2>
+                    <p>Or to explain what a language is it requires a knowledge of more than one?</p>
+                    <p>I happen to know more than a few so my definitions might get a bit complicated as sometimes the process of thinking in one gets expressed in another and the imterpretation is being done seemingly unnoticably and I end up writing something in one language that perhaps should have been done in another.</p>
+                    <p>Yet expression in such cases becomes more meaningful as interpretations in other languages are considered.</p>
+                    <h2>Lithuanian</h2>
+                    <p>I live in a country that has a history of its language being represed.</p>
+                    <p>The people that did not obey the rules and traveled thru forests bringing books in Lithuanian are now considered heroes.</p>
+                    <p>Yet at the time not everyone was either willing to do so or help those that did.</p>
+                    <p>It is because of their effort the not only Lithuanian language but also the country exists.</p>
+                    <p>The years the country remembers as oppresion are the years it was a part of Soviet Union.</p>
+                    <p>Perhaps not every aspect of Lithuanian language was banned because there are a lot of literature that was printed in Lithuanian during that time.</p>
+                    <p>So perhaps the question was that of the content that was printed inside the books.</p>
+                    <p>Yes. Parts of it was filled with communist propaganda and other dictatorial non-sense.</p>
+                    <p>But there were also physics books and those of math that had all the content that was need printed in a single book.</p>
+                    <p>One book for all school years was enough. And that book was available for free.</p>
+                    <h2>English.</h2>
+                    <p>Coming back from soviet nostalgia it would be quite impossible to think of a single for a single subject for all years of school.</p>
+                    <p>But how hard would it be to do so?</p>
+                    <p>What information is the most crucial and needed?</p>
+                    <p>Have there been any efforts to do such thing in english?</p>
+                    <p>Yes. Everyone gets it that there is a lot of content.</p>
+                    <p>But what are the most important parts of it?</p>
+                    <p>Coming back to the effort to define the english language we would have to start with its history and its origins.</p>
+                    <h2>Babel</h2>
+                    <p>On many levels the story of Babel written in the book of genesis does make a lot of sense.</p>
+                    <p>What are the other explanations about why there are so many langauges?</p>
                 </article>
+
             </section>
         </main>
         <script>
@@ -97,5 +128,6 @@
                 hide('toggle')
             }
         </script>
-    </body>
-</html>
+    
+
+</body></html>
